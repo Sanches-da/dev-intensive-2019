@@ -1,10 +1,9 @@
 package ru.skillbranch.devintensive.extensions
 
-import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.abs
 import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 const val SECOND = 1000L
 const val MINUTE = 60 * SECOND
@@ -77,19 +76,19 @@ fun Date.humanizeDiff(date: Date=Date()): String {
     }
 
     val timeDiff = (date.time - this.time)
-    val timeDiffUnsigned = if (timeDiff>0) timeDiff else -timeDiff
+    val timeDiffUnsigned = abs(timeDiff)
     val postfix = if (timeDiff>0) " назад" else ""
     val prefix = if (timeDiff<0) "через " else ""
 
     return when(timeDiffUnsigned){
-        in 0 until SECOND            -> "только что"
-        in SECOND until 45*SECOND    -> "${prefix}несколько секунд$postfix"
-        in 45*SECOND until 75*SECOND -> "${prefix}минуту$postfix"
-        in 75*SECOND until 45*MINUTE -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.MINUTE)}$postfix"
-        in 45*MINUTE until 75*MINUTE -> "${prefix}час$postfix"
-        in 75*MINUTE until 22*HOUR   -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.HOUR)}$postfix"
-        in 22*HOUR until 26*HOUR     -> "${prefix}день"
-        in 26*HOUR until 360*DAY     -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.DAY)}$postfix"
+        in 0 .. SECOND            -> "только что"
+        in SECOND .. 45*SECOND    -> "${prefix}несколько секунд$postfix"
+        in 45*SECOND .. 75*SECOND -> "${prefix}минуту$postfix"
+        in 75*SECOND .. 45*MINUTE -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.MINUTE)}$postfix"
+        in 45*MINUTE .. 75*MINUTE -> "${prefix}час$postfix"
+        in 75*MINUTE .. 22*HOUR   -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.HOUR)}$postfix"
+        in 22*HOUR .. 26*HOUR     -> "${prefix}день"
+        in 26*HOUR .. 360*DAY     -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.DAY)}$postfix"
         else                         -> if (timeDiff>0) "более года назад" else "более чем через год"
     }
 }
