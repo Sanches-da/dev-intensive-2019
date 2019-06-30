@@ -47,28 +47,28 @@ fun Date.humanizeDiff(date: Date=Date()): String {
             TimeUnits.SECOND ->{"секунд"+
                 when (unitValue[unitValue.lastIndex]){
                     '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
-                    in '2'..'4' -> "ы"
+                    in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
                     else -> ""
                 }
             }
             TimeUnits.MINUTE -> {"минут"+
                     when (unitValue[unitValue.lastIndex]){
                         '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
-                        in '2'..'4' -> "ы"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
                         else -> ""
                     }
             }
             TimeUnits.HOUR -> {"час"+
                     when (unitValue[unitValue.lastIndex]){
                         '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else ""
-                        in '2'..'4' -> "а"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else "а"
                         else -> "ов"
                     }
             }
             TimeUnits.DAY -> {"д"+
                     when (unitValue[unitValue.lastIndex]){
                         '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ень"
-                        in '2'..'4' -> "ня"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ня"
                         else -> "ней"
                     }
             }
