@@ -50,13 +50,14 @@ object Utils {
                 "э" -> "e"
                 "ю" -> "yu"
                 "я" -> "ya"
-                else -> divider
+                " " -> divider
+                else -> char
             }
         }
 
         var result = ""
         for (char in payload){
-            result += if(char.isUpperCase()) transliterateChar(char.toLowerCase().toString()).toUpperCase(Locale("en"))
+            result += if(char.isUpperCase()) transliterateChar(char.toLowerCase().toString()).capitalize()
                       else transliterateChar(char.toString())
         }
 
