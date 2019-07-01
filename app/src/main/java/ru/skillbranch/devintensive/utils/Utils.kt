@@ -4,7 +4,7 @@ import java.util.*
 
 object Utils {
     fun parseFullName(fullName:String?) : Pair<String?, String?> {
-         val mFullName = fullName?.replace(Regex(" {2,}")," ")
+         val mFullName = fullName?.trim()?.replace(Regex(" {2,}")," ")
         val parts : List<String>? = if (mFullName.isNullOrBlank()) null else mFullName.split(" ")
 
         val firstName = parts?.getOrNull(0)
