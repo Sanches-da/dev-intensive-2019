@@ -1,13 +1,11 @@
 package ru.skillbranch.devintensive.extensions
 
-fun String?.truncate(len:Int=16):String?{
-    if (this == null) return null
+fun String.truncate(len:Int=16):String{
     val newValue = this.trimEnd()
-    return newValue.substring(0,len).trimEnd() + if (newValue.length > len) "..." else ""
+    return newValue.take(len).trimEnd() + if (newValue.length > len) "..." else ""
 }
 
-fun String?.stripHtml():String?{
-    if (this == null) return null
+fun String.stripHtml():String{
     return this
         .replace(Regex("(=(.*?)(\"(.*?)(?<!\\\\)\"|'(.*?)(?<!\\\\)').*?)"),"")
         .replace("&nbsp;"," ")
