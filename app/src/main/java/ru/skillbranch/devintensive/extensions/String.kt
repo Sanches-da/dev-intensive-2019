@@ -3,7 +3,7 @@ package ru.skillbranch.devintensive.extensions
 fun String?.truncate(len:Int=16):String?{
     if (this == null) return null
     val newValue = this.trimEnd()
-    return newValue.take(len).trimEnd() + if (newValue.length > len) "..." else ""
+    return newValue.substring(0,len).trimEnd() + if (newValue.length > len) "..." else ""
 }
 
 fun String?.stripHtml():String?{
