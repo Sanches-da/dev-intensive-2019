@@ -40,38 +40,7 @@ fun Date.humanizeDiff(date: Date=Date()): String {
                     TimeUnits.DAY -> DAY
                 }
 
-         val unitValue = unitDiff.roundToInt().toString()
-
-        return "$unitValue "+when (unit){
-            TimeUnits.SECOND ->{"секунд"+
-                when (unitValue[unitValue.lastIndex]){
-                    '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
-                    in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
-                    else -> ""
-                }
-            }
-            TimeUnits.MINUTE -> {"минут"+
-                    when (unitValue[unitValue.lastIndex]){
-                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
-                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
-                        else -> ""
-                    }
-            }
-            TimeUnits.HOUR -> {"час"+
-                    when (unitValue[unitValue.lastIndex]){
-                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else ""
-                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else "а"
-                        else -> "ов"
-                    }
-            }
-            TimeUnits.DAY -> {"д"+
-                    when (unitValue[unitValue.lastIndex]){
-                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ень"
-                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ня"
-                        else -> "ней"
-                    }
-            }
-        }
+        return unit.plural(unitDiff.roundToInt())
 
     }
 
@@ -87,49 +56,50 @@ fun Date.humanizeDiff(date: Date=Date()): String {
         in 75*SECOND .. 45*MINUTE -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.MINUTE)}$postfix"
         in 45*MINUTE .. 75*MINUTE -> "${prefix}час$postfix"
         in 75*MINUTE .. 22*HOUR   -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.HOUR)}$postfix"
-        in 22*HOUR .. 26*HOUR     -> "${prefix}день"
+        in 22*HOUR .. 26*HOUR     -> "${prefix}день$postfix"
         in 26*HOUR .. 360*DAY     -> "$prefix${getTimeUnitValue(timeDiffUnsigned, TimeUnits.DAY)}$postfix"
         else                         -> if (timeDiff>0) "более года назад" else "более чем через год"
     }
 }
 
-fun TimeUnits.plural(value:Int):String{
-    val unitValue = value.toString();
-    return "$unitValue "+when (this){
-        TimeUnits.SECOND ->{"секунд"+
-                when (unitValue[unitValue.lastIndex]){
-                    '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
-                    in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
-                    else -> ""
-                }
-        }
-        TimeUnits.MINUTE -> {"минут"+
-                when (unitValue[unitValue.lastIndex]){
-                    '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
-                    in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
-                    else -> ""
-                }
-        }
-        TimeUnits.HOUR -> {"час"+
-                when (unitValue[unitValue.lastIndex]){
-                    '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else ""
-                    in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else "а"
-                    else -> "ов"
-                }
-        }
-        TimeUnits.DAY -> {"д"+
-                when (unitValue[unitValue.lastIndex]){
-                    '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ень"
-                    in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ня"
-                    else -> "ней"
-                }
-        }
-    }
-}
 
 enum class TimeUnits{
     SECOND,
     MINUTE,
     HOUR,
-    DAY
+    DAY;
+
+    fun plural(value:Int):String{
+        val unitValue = value.toString();
+        return "$unitValue "+when (this){
+            SECOND ->{"секунд"+
+                    when (unitValue[unitValue.lastIndex]){
+                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
+                        else -> ""
+                    }
+            }
+            MINUTE -> {"минут"+
+                    when (unitValue[unitValue.lastIndex]){
+                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "у"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "" else "ы"
+                        else -> ""
+                    }
+            }
+            HOUR -> {"час"+
+                    when (unitValue[unitValue.lastIndex]){
+                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else ""
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ов" else "а"
+                        else -> "ов"
+                    }
+            }
+            DAY -> {"д"+
+                    when (unitValue[unitValue.lastIndex]){
+                        '1' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ень"
+                        in '2'..'4' -> if(unitValue.getOrNull(unitValue.lastIndex-1)=='1') "ней" else "ня"
+                        else -> "ней"
+                    }
+            }
+        }
+    }
 }
