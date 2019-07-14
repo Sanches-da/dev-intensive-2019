@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -13,7 +12,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.skillbranch.devintensive.extensions.hidekeyboard
+import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.extensions.isKeyboardOpen
 import ru.skillbranch.devintensive.models.Bender
 
@@ -103,7 +102,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, TextView.OnEdit
             benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
             textTxt.text = phrase
             if (this.isKeyboardOpen()){
-                this.hidekeyboard()
+                this.hideKeyboard()
             }
         }
     }
