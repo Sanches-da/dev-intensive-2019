@@ -33,7 +33,7 @@ class Bender (
                     } else "Это неправильный ответ\n"
                 }
             }else{
-                valid
+                "$valid\n"
             }
         } + question.question to status.color
     }
