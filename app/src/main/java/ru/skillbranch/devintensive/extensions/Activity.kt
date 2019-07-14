@@ -1,8 +1,10 @@
 package ru.skillbranch.devintensive.extensions
 
 import android.app.Activity
+import android.graphics.Rect
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import kotlin.math.abs
 
 fun Activity.hideKeyboard(){
     val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -11,11 +13,15 @@ fun Activity.hideKeyboard(){
 }
 
 fun Activity.isKeyboardClosed():Boolean{
-    val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    return !imm.isActive
+    val rect = Rect()
+    this.window.decorView.getWindowVisibleDisplayFrame(rect)
+
+    return abs(rect.height()-rect.bottom) < 128
 }
 
 fun Activity.isKeyboardOpen():Boolean{
-    val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    return imm.isActive
+    val rect = Rect()
+    this.window.decorView.getWindowVisibleDisplayFrame(rect)
+
+    return abs(rect.height()-rect.bottom) > 128
 }
