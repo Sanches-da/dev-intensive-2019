@@ -70,7 +70,7 @@ enum class TimeUnits{
     DAY;
 
     fun plural(value:Int):String{
-        val unitValue = value.toString();
+        val unitValue = value.toString()
         return "$unitValue "+when (this){
             SECOND ->{"секунд"+
                     when (unitValue[unitValue.lastIndex]){
