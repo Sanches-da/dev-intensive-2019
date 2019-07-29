@@ -3,16 +3,13 @@ package ru.skillbranch.devintensive.ui.custom
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
 import androidx.appcompat.widget.AppCompatImageView
 import ru.skillbranch.devintensive.R
 import kotlin.math.min
-import android.graphics.Shader
-import android.graphics.BitmapShader
-import android.graphics.drawable.Drawable
-import android.os.Build
-import android.widget.ImageView
 
 
 class CircleImageView @JvmOverloads constructor(
@@ -22,7 +19,7 @@ class CircleImageView @JvmOverloads constructor(
 ) : AppCompatImageView(context,attrs,defStyleAttr) {
     companion object {
         private const val DEFAULT_BORDER_COLOR = Color.WHITE
-        private const val DEFAULT_BORDER_WIDTH = 2f
+        private const val DEFAULT_BORDER_WIDTH = 2
     }
 
     // Properties
@@ -33,22 +30,9 @@ class CircleImageView @JvmOverloads constructor(
     private var heightCircle: Int = 0
 
     //region Attributes
-    var circleColor: Int = Color.DKGRAY
-        set(value) {
-            field = value
-            paintBackground.color = field
-            invalidate()
-        }
-    var borderWidth: Float = DEFAULT_BORDER_WIDTH
-        set(value) {
-            field = value
-            update()
-        }
-    var borderColor: Int = DEFAULT_BORDER_COLOR
-        set(value) {
-            field = value
-            update()
-        }
+    private var circleColor: Int = Color.DKGRAY
+    private var borderWidth: Float = DEFAULT_BORDER_WIDTH * context.resources.displayMetrics.density
+    private var borderColor: Int = DEFAULT_BORDER_COLOR
     //endregion
 
     // Color Filter
@@ -77,11 +61,11 @@ class CircleImageView @JvmOverloads constructor(
             val attributes = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyleAttr, 0)
 
             // Init Background Color
-            //circleColor = attributes.getColor(R.styleable.CircularImageView_civ_circle_color, Color.WHITE)
 
-            val defaultBorderSize = DEFAULT_BORDER_WIDTH * getContext().resources.displayMetrics.density
+            val defaultBorderSize = DEFAULT_BORDER_WIDTH * context.resources.displayMetrics.density
             borderWidth = attributes.getDimension(R.styleable.CircleImageView_cv_borderWidth, defaultBorderSize)
             borderColor = attributes.getColor(R.styleable.CircleImageView_cv_borderColor, Color.WHITE)
+            circleColor = borderColor
 
             attributes.recycle()
         }
@@ -236,6 +220,31 @@ class CircleImageView @JvmOverloads constructor(
     }
     //endregion
 
+
+    //region getters and setters
+
+    fun getBorderWidth(): Int = (borderWidth / context.resources.displayMetrics.density).toInt()
+
+    fun setBorderWidth(@Dimension dp:Int){
+        borderWidth = dp * context.resources.displayMetrics.density
+        update()
+    }
+
+    fun getBorderColor():Int = borderColor
+
+    fun setBorderColor(hex:String){
+        borderColor = Color.parseColor(hex)
+        circleColor = borderColor
+        update()
+    }
+
+    fun setBorderColor(@ColorRes colorId: Int){
+        borderColor = resources.getColor(colorId, context.theme)
+        circleColor = borderColor
+        update()
+    }
+
+    //endregion
 
 
 }
