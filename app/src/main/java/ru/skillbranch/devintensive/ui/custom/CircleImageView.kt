@@ -95,7 +95,7 @@ class CircleImageView @JvmOverloads constructor(
         loadBitmap()
 
         // Check if civImage isn't null
-        if (civImage == null) return
+        if (civDrawable == null) return
 
         val circleCenterWithBorder = circleCenter + borderWidth
 
@@ -105,11 +105,12 @@ class CircleImageView @JvmOverloads constructor(
         canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenter, paintBackground)
         // Draw CircularImageView
         canvas.drawCircle(circleCenterWithBorder, circleCenterWithBorder, circleCenter, paint)
+
     }
 
     private fun update() {
-        if (civImage != null)
-            updateShader()
+        //if (civImage != null)
+        //    updateShader()
 
         val usableWidth = width - (paddingLeft + paddingRight)
         val usableHeight = height - (paddingTop + paddingBottom)
@@ -126,8 +127,9 @@ class CircleImageView @JvmOverloads constructor(
         if (civDrawable == drawable) return
 
         civDrawable = drawable
-        civImage = drawableToBitmap(civDrawable)
-        updateShader()
+        //civImage = drawableToBitmap(civDrawable)
+        //updateShader()
+        super.setImageDrawable(drawable)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
