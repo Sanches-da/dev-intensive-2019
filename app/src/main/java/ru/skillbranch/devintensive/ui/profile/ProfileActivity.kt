@@ -115,7 +115,7 @@ class ProfileActivity : AppCompatActivity(){
     private fun setAvatarImage() {
         val initials = Utils.toInitials(et_first_name.text.toString(), et_last_name.text.toString())
         if (!initials.isNullOrEmpty()) {
-            iv_avatar.setImageDrawable(Utils.getInitialsDrawable(this, initials))
+            iv_avatar.setImageBitmap(Utils.getInitialsBitmap(this, initials))
         } else {
             iv_avatar.setImageDrawable(resources.getDrawable(R.drawable.avatar_default, theme))
         }

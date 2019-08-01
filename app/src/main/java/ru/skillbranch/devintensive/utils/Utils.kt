@@ -113,7 +113,7 @@ object Utils {
         }
     }
 
-    fun getInitialsDrawable(cont: Context, initials:String): Drawable? {
+    fun getInitialsBitmap(cont: Context, initials:String): Bitmap? {
         if (initials.isEmpty()) return null
 
         val textSizeCoef = 0.43f
@@ -153,6 +153,6 @@ object Utils {
         }
 
         a.recycle()
-        return bitmap.toDrawable(cont.resources)
+        return bitmap
     }
 }
