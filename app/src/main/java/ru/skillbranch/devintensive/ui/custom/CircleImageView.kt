@@ -130,8 +130,6 @@ class CircleImageView @JvmOverloads constructor(
         civDrawable = drawable
         civImage = drawableToBitmap(civDrawable)
         updateShader()
-
-        super.setImageBitmap(civImage)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
