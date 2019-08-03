@@ -82,12 +82,15 @@ class ProfileActivity : AppCompatActivity(){
 
         if (isEditMode){
             checkRepoIsValid()
+        }else{
+            wr_repository.isErrorEnabled = false
         }
 
     }
 
     private fun checkRepoIsValid() {
         val repo = et_repository.text.toString()
+        wr_repository.isErrorEnabled = (repo.isBlank() || Utils.validateRepository(repo)).not()
         wr_repository.error = if (repo.isBlank() || Utils.validateRepository(repo)) "" else "Невалидный адрес репозитория"
     }
 
@@ -168,7 +171,6 @@ class ProfileActivity : AppCompatActivity(){
             setImageDrawable(icon)
         }
 
-        wr_repository.isErrorEnabled = editMode
         if (editMode){
             checkRepoIsValid()
             et_repository.addTextChangedListener(repoChangeListener)
