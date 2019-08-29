@@ -56,6 +56,7 @@ class GroupActivity : AppCompatActivity() {
 
         usersAdapter = UserAdapter{viewModel.handleSelectedItem(it.id)}
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        divider.setDrawable(resources.getDrawable(R.drawable.divider,theme))
 
         with(rv_user_list){
             adapter = usersAdapter
@@ -83,7 +84,7 @@ class GroupActivity : AppCompatActivity() {
 
     private fun initToolBar() {
         setSupportActionBar(toolbar)
-        supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
