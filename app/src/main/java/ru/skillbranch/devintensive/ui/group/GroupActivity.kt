@@ -73,7 +73,7 @@ class GroupActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item?.itemId == android.R.id.home){
+        return if (item.itemId == android.R.id.home){
             finish()
             overridePendingTransition(R.anim.idle, R.anim.bottom_down)
             true
