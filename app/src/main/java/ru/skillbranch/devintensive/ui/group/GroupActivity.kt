@@ -8,17 +8,20 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.children
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_group.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.UserItem
 import ru.skillbranch.devintensive.ui.adapters.UserAdapter
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.GroupViewModel
 
 class GroupActivity : AppCompatActivity() {
@@ -85,6 +88,7 @@ class GroupActivity : AppCompatActivity() {
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Создание группы"
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -114,9 +118,9 @@ class GroupActivity : AppCompatActivity() {
             isCloseIconVisible = true
             tag = user.id
             isClickable = true
-            closeIconTint = ColorStateList.valueOf(Color.WHITE)
-            chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.color_primary_light))
-            setTextColor(Color.WHITE)
+//            closeIconTint = ColorStateList.valueOf(Color.WHITE)
+//            chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.color_primary_light))
+//            setTextColor(Color.WHITE)
         }
         chip.setOnCloseIconClickListener{
             viewModel.handleRemoveChip(it.tag.toString())

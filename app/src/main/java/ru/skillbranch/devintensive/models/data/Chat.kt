@@ -20,10 +20,10 @@ data class Chat(
     fun unreadableMessageCount(): Int = messages.map{ it }.filter { !it.isReaded }.size
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageDate(): Date?  = messages.map { it }.maxBy { it.id }?.date
+    fun lastMessageDate(): Date?  = messages.map { it }.maxBy { it.id.toInt() }?.date
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageShort(): Pair<String, String?> = when (val lastMessage = messages.map { it }.maxBy { it.id }) {
+    fun lastMessageShort(): Pair<String, String?> = when (val lastMessage = messages.map { it }.maxBy { it.id.toInt() }) {
             is TextMessage -> lastMessage.text!!.truncate() to lastMessage.from.firstName
             is ImageMessage -> "${lastMessage.from.firstName} - отправил фото" to lastMessage.from.firstName
             else -> "" to ""

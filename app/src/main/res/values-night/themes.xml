@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimary">@color/color_gray_darker</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent_night</item>
 
@@ -15,5 +16,94 @@
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransition</item>
 
+        <item name="actionBarStyle">@style/AppTheme.PopupOverlay</item>
+        <item name="snackbarStyle">@style/Snackbar</item>
+        <item name="chipStyle">@style/Chip</item>
+        <item name="chipGroupStyle">@style/ChipGroup</item>
+
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Dark"/>
+
+    <style name="Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textAppearance">@style/Snackbar.Text</item>
+    </style>
+    <style name="Snackbar.Text">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+
+    <style name="Main"/>
+    <style name="Group"/>
+    <style name="Archive"/>
+
+    <style name="Main.ChatList">
+        <item name="android:background">@color/color_gray_darkest</item>
+    </style>
+
+    <style name="Archive.ChatList">
+        <item name="android:background">@color/color_gray_darkest</item>
+    </style>
+
+    <style name="Group.UserList">
+        <item name="android:background">@color/color_gray_darkest</item>
+    </style>
+
+
+    <!-- User Item -->
+    <style name="ChatItem">
+        <item name="android:background">@color/color_gray_darkest</item>
+    </style>
+    <style name="ChatItem.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="ChatItem.Author">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="ChatItem.Message">
+        <item name="android:textColor">@color/color_gray</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="ChatItem.Date">
+        <item name="android:textColor">@color/color_gray</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="ChatItem.Counter">
+        <item name="android:textColor">@color/color_gray</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="ChatItem.SwipeBackground">
+        <item name="android:background">@color/color_accent_night</item>
+    </style>
+
+    <!-- User Item -->
+    <style name="UserItem">
+        <item name="android:background">@color/color_gray_darkest</item>
+    </style>
+    <style name="UserItem.UserName">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium"</item>
+    </style>
+    <style name="UserItem.LastActivity">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_gray</item>
+    </style>
+
+    <!-- User Item -->
+    <style name="ChipGroup" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="android:background">@android:color/black</item>
+    </style>
+    <style name="Chip" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="chipBackgroundColor">@color/color_gray_darkest</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="closeIconTint">@color/color_gray</item>
     </style>
 </resources>

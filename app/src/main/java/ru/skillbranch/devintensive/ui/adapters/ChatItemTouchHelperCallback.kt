@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
+import ru.skillbranch.devintensive.models.data.ChatType
 import kotlin.math.abs
 import kotlin.math.roundToInt
+
 
 class ChatItemTouchHelperCallback(
         val adapter: ChatAdapter,
@@ -22,7 +24,7 @@ class ChatItemTouchHelperCallback(
 
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
-        return if (viewHolder is ItemTouchViewHolder){
+        return if (viewHolder is ItemTouchViewHolder && adapter.items[viewHolder.adapterPosition].chatType != ChatType.ARCHIVE){
             makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.START)
         }else{
             makeFlag(ItemTouchHelper.ACTION_STATE_IDLE, ItemTouchHelper.START)
@@ -60,7 +62,7 @@ class ChatItemTouchHelperCallback(
     }
 
     private fun drawIcon(canvas: Canvas, itemView: View, dX: Float) {
-        val icon = itemView.resources.getDrawable(R.drawable.ic_arch, itemView.context.theme)
+        val icon = if (adapter.isArchive) itemView.resources.getDrawable(R.drawable.ic_unarch, itemView.context.theme) else itemView.resources.getDrawable(R.drawable.ic_arch, itemView.context.theme)
         val iconSize = itemView.resources.getDimensionPixelSize(R.dimen.icon_size)
         val space = itemView.resources.getDimensionPixelSize(R.dimen.spacing_normal_16)
 
@@ -86,8 +88,12 @@ class ChatItemTouchHelperCallback(
         }
 
         with (bgPaint){
-            color = itemView.resources.getColor(R.color.color_primary, itemView.context.theme)
+            val attrs = intArrayOf(android.R.attr.background)
+            val ta = itemView.context.obtainStyledAttributes(R.style.ChatItem_SwipeBackground, attrs)
+            color = ta.getColor(0, itemView.resources.getColor(R.color.color_primary, itemView.context.theme))
             alpha = if (itemView.width == 0) 0 else (abs(dX*255) /itemView.width).roundToInt()
+
+            ta.recycle()
         }
 
         canvas.drawRect(bgRect, bgPaint)

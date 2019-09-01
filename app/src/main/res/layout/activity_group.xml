@@ -26,6 +26,7 @@
         android:orientation="vertical">
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
+            style="@style/ChipGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/spacing_normal_16"
@@ -39,6 +40,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_user_list"
+            style="@style/Group.UserList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_user_list">

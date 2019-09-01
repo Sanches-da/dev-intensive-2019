@@ -15,4 +15,9 @@
     <color name="color_indicator">#581F99</color>
     <color name="color_green">#4FD149</color>
 
+    <color name="color_gray_darker">#272727</color>
+    <color name="color_gray_darkest">#121212</color>
+    <color name="color_almost_white">#FAFAFA</color>
+
+    <color name="color_divider">#1FFFFFFF</color>
 </resources>

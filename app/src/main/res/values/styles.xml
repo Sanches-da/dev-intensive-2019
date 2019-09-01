@@ -1,6 +1,4 @@
 <resources>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 
     <style name="ActivityTransition" parent="android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/bottom_up</item>

@@ -4,7 +4,7 @@
     android:layout_height="@dimen/item_size"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/white"
+    style="@style/ChatItem"
     android:padding="@dimen/spacing_normal_16">
 
     <ru.skillbranch.devintensive.ui.custom.CircleImageView
@@ -17,12 +17,10 @@
 
     <TextView
         android:id="@+id/tv_title_group"
+        style="@style/ChatItem.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="chat title"
-        android:textColor="@color/color_primary"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="14sp"
         android:layout_toRightOf="@id/iv_avatar_group"
         android:layout_toLeftOf="@id/tv_date_group"
         android:layout_marginRight="@dimen/spacing_normal_16"
@@ -30,24 +28,20 @@
 
     <TextView
         android:id="@+id/tv_message_author"
+        style="@style/ChatItem.Author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Sanches"
-        android:textColor="@color/color_primary"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="14sp"
         android:layout_toRightOf="@id/iv_avatar_group"
         android:layout_below="@id/tv_title_group"
         android:layout_marginRight="@dimen/spacing_tiny_4"/>
 
     <TextView
         android:id="@+id/tv_message_group"
+        style="@style/ChatItem.Message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="When I was young..."
-        android:textColor="@color/color_gray_dark"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="14sp"
         android:layout_toRightOf="@id/tv_message_author"
         android:layout_toLeftOf="@id/tv_counter_group"
         android:layout_below="@id/tv_title_group"
@@ -55,15 +49,15 @@
 
     <TextView
         android:id="@+id/tv_date_group"
+        style="@style/ChatItem.Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:textColor="@color/color_gray"
         tools:text="11:00"/>
     <TextView
         android:id="@+id/tv_counter_group"
+        style="@style/ChatItem.Counter"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/counter_size"
         android:minWidth="@dimen/counter_size"
@@ -71,9 +65,7 @@
         android:gravity="center"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:textSize="10sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:textColor="@android:color/white"
         tools:text="11"/>
 </RelativeLayout>

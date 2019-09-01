@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_chat_archive.*
 import kotlinx.android.synthetic.main.item_chat_gorup.*
 import kotlinx.android.synthetic.main.item_chat_single.*
 import ru.skillbranch.devintensive.R
@@ -23,6 +24,7 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
     }
 
     var items: List<ChatItem> = listOf()
+    var isArchive = false
 
     override fun getItemViewType(position: Int): Int = when (items[position].chatType){
         ChatType.ARCHIVE -> ARCHIVE_TYPE
@@ -36,6 +38,7 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
         return when (viewType){
             SINGLE_TYPE -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
             GROUP_TYPE -> GroupViewHolder(inflater.inflate(R.layout.item_chat_gorup, parent, false))
+            ARCHIVE_TYPE -> ArchiveViewHolder(inflater.inflate(R.layout.item_chat_archive, parent, false))
             else -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
         }
     }
@@ -70,18 +73,19 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
         override val containerView: View?
             get() = itemView
 
+        fun onItemSelected() {
+//            itemView.setBackgroundColor(Color.LTGRAY)
+        }
+
+        fun onItemCleared() {
+//            itemView.setBackgroundColor(Color.WHITE)
+        }
+
         abstract fun bind(item: ChatItem, listener: (ChatItem) -> Unit)
 
     }
 
     inner class SingleViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
-        override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
-        }
-
-        override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
-        }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit){
             if (item.avatar == null){
@@ -106,7 +110,7 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
             }
 
             tv_title_single.text = item.title
-            tv_message_single.text = item.shortDescription
+            tv_message_single.text = if (item.shortDescription.isNullOrEmpty()) itemView.resources.getString(R.string.no_messages) else item.shortDescription
 
             itemView.setOnClickListener{
                 listener.invoke(item)
@@ -115,13 +119,6 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
     }
 
     inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
-        override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
-        }
-
-        override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
-        }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit){
             if (item.avatar == null){
@@ -139,12 +136,37 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
             }
 
             tv_title_group.text = item.title
-            tv_message_group.text = item.shortDescription
+            tv_message_group.text = if (item.shortDescription.isNullOrEmpty()) itemView.resources.getString(R.string.no_messages) else item.shortDescription
 
             with (tv_message_author){
                 visibility = if (!item.author.isNullOrEmpty()) View.VISIBLE else View.GONE
                 text = item.author
             }
+
+            itemView.setOnClickListener{
+                listener.invoke(item)
+            }
+        }
+    }
+
+    inner class ArchiveViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
+
+        override fun bind(item: ChatItem, listener: (ChatItem) -> Unit){
+            iv_avatar_archive.setImageDrawable(itemView.resources.getDrawable(R.drawable.ic_arch, itemView.context.theme))
+
+            with (tv_date_archive){
+                visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
+                text = item.lastMessageDate
+            }
+
+            with (tv_counter_archive){
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
+                text = item.messageCount.toString()
+            }
+
+            tv_title_archive.text = item.title
+            tv_message_archive.text = item.shortDescription
+            tv_message_author_archive.text = item.author
 
             itemView.setOnClickListener{
                 listener.invoke(item)

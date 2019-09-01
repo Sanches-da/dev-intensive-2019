@@ -4,7 +4,7 @@
 
     <shape>
         <size android:height="1dp"/>
-        <solid android:color="@color/color_divider_dark" />
+        <solid android:color="@color/color_divider" />
     </shape>
 
 </inset>
