@@ -139,8 +139,9 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
             tv_message_group.text = if (item.shortDescription.isNullOrEmpty()) itemView.resources.getString(R.string.no_messages) else item.shortDescription
 
             with (tv_message_author){
+                val author = (if (item.author.isNullOrEmpty()) "" else "@") + item.author
                 visibility = if (!item.author.isNullOrEmpty()) View.VISIBLE else View.GONE
-                text = item.author
+                text = author
             }
 
             itemView.setOnClickListener{
