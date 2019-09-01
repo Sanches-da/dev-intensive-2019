@@ -164,8 +164,9 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
                 text = item.messageCount.toString()
             }
 
+            val author = "@${item.shortDescription}"
             tv_title_archive.text = item.title
-            tv_message_archive.text = item.shortDescription
+            tv_message_archive.text = author
             tv_message_author_archive.text = item.author
 
             itemView.setOnClickListener{
