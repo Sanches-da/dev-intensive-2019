@@ -39,7 +39,7 @@ class MainViewModel : ViewModel(){
                     "",
                     App.applicationContext().getString(R.string.archive_chat_title),
                     when(lastMessage){
-                        is TextMessage -> lastMessage.text!!.truncate()
+                        is TextMessage -> lastMessage.text!!
                         is ImageMessage -> "${lastMessage.from.firstName} - отправил фото"
                         else -> ""
                     },
